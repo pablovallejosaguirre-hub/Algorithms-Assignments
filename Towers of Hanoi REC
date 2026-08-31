@@ -1,0 +1,28 @@
+#include <iostream>
+
+using namespace std;
+
+void HanoiRec(int n, char first, char last, char aux)
+{
+    // Base case: only 1 disk
+    if (n==1)
+    {
+        std::cout << "Move disk 1 from rod " << first << " to rod " << last << "\n";
+        return;
+    }
+
+    // Move top n-1 disks from first to auxiliary rod
+    HanoiRec(n-1, first, aux, last);
+
+    // Move the remaining larger disk from first to last rod
+    std::cout << "Move disk " << n << " from rod " << first << " to rod " << last << "\n";
+
+     // Move the n-1 disks from the auxiliary rod to the last rod
+     HanoiRec(n - 1, aux, last, first);
+}
+
+int main()
+{
+    HanoiRec(3, 'A', 'C', 'B');
+    return 0;
+}
