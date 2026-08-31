@@ -1,0 +1,54 @@
+#include <iostream>
+
+using namespace std;
+
+struct X
+{
+    int n;
+    char first, last, aux;
+    int type; // 0 = move subrod, 1 = move disk
+};
+
+int MAX = 10000;
+
+void HanoiIte(int n, char first, char last, char aux)
+{
+    X pile[MAX];
+    int top = -1;
+
+    top++;
+    pile[top] = {n, first, last, aux, 0};
+
+    while (top >= 0)
+    {
+        X current = pile[top];
+        top--;
+
+        if (current.type == 1)
+        {
+            std::cout << "Move disk " << current.n << " from rod " << current.first << " to rod " << current.last << "\n";
+            continue;
+        }
+
+        if (current.n == 1)
+        {
+            std::cout << "Move disk 1 from rod " << current.first << " to rod " << current.last << "\n";
+            continue;
+        }
+
+        top++;
+        pile[top] = {current.n - 1, current.aux, current.last, current.first, 0};
+
+        top++;
+        pile[top] = {current.n, current.first, current.last, current.aux, 1};
+
+        top++;
+        pile[top] = {current.n - 1, current.first, current.aux, current.last, 0};
+    }
+}
+
+int main()
+{
+    HanoiIte(3, 'A', 'C', 'B');
+    return 0;
+}
